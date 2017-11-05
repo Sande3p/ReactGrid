@@ -10,7 +10,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  overflow: hidden;
+  overflow: visible !important;
 }
 .react-grid-HeaderCell {
   -webkit-user-select: none;
@@ -127,5 +127,37 @@
 
 .react-grid-HeaderCell .Select-menu-outer .Select-menu .Select-option.is-focused {
     color: #555555;   
+}
+
+.react-grid-HeaderCell .context-menu{
+  background-color: #fff;
+  position: absolute;
+  left: 5px;
+  top: 44px;
+  z-index: 99;
+  border: 1px solid #ddd;
+  min-width: 80px;
+  padding: 0;
+  display: none;
+}
+.react-grid-HeaderCell.is-open .context-menu{
+  display: block;
+}
+.react-grid-HeaderCell.is-open .context-menu.undefined{
+  display: none;
+}
+
+.react-grid-HeaderCell .context-menu ul{
+  list-style: none;
+  margin: 0;
+}
+
+.react-grid-HeaderCell .context-menu ul li{
+  padding: 0 20px;
+}
+.react-grid-HeaderCell .context-menu ul li:hover{
+  padding: 0 20px;
+  background-color: #f3f3f3;
+  cursor: pointer;
 }
 

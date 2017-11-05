@@ -23,8 +23,8 @@
     "react-component"
   ],
   "peerDependencies": {
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react": "15.4.2",
+    "react-dom": "15.4.2"
   },
   "dependencies": {
     "classnames": "^1.2.0",
@@ -34,7 +34,7 @@
     "json-loader": "^0.5.7",
     "object-assign": "^2.0.0",
     "prop-types": "^15.6.0",
-    "react": "^0.14.6",
+    "react": "0.14.6",
     "react-contextmenu": "1.6.2",
     "react-dnd": "^2.1.4",
     "react-dnd-html5-backend": "^2.1.2",
@@ -93,7 +93,7 @@
     "node-dir": "^0.1.12",
     "object-assign": "^2.1.1",
     "open": "0.0.5",
-    "react": "^15.4.2",
+    "react": "15.4.2",
     "react-addons-perf": "^15.4.2",
     "react-addons-shallow-compare": "^15.4.2",
     "react-addons-test-utils": "^15.4.2",

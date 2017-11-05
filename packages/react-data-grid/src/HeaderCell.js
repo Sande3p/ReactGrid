@@ -3,6 +3,7 @@ const ReactDOM      = require('react-dom');
 const joinClasses    = require('classnames');
 const ExcelColumn    = require('./PropTypeShapes/ExcelColumn');
 const ResizeHandle   = require('./ResizeHandle');
+const ContextDropDown   = require('./ContextDropDown');
 require('../../../themes/react-data-grid-header.css');
 
 const PropTypes      = React.PropTypes;
@@ -12,16 +13,26 @@ function simpleCellRenderer(objArgs: {column: {name: string}}): ReactElement {
   return <div className="widget-HeaderCell__value">{headerText}</div>;
 }
 
+
+
+function bodyClickHandler(e){
+  let headerCells = document.getElementsByClassName('is-open');
+  for(let i =0;i<headerCells.length;i++){
+    let el = headerCells[i];
+    el.classList.remove('is-open');
+  }
+}
+
 const HeaderCell = React.createClass({
 
-  propTypes: {
-    renderer: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired,
-    column: PropTypes.shape(ExcelColumn).isRequired,
-    onResize: PropTypes.func.isRequired,
-    height: PropTypes.number.isRequired,
-    onResizeEnd: PropTypes.func.isRequired,
-    className: PropTypes.string
-  },
+  // propTypes: {
+  //   renderer: PropTypes.oneOfType([PropTypes.func, PropTypes.element]).isRequired,
+  //   column: PropTypes.shape(ExcelColumn).isRequired,
+  //   onResize: PropTypes.func.isRequired,
+  //   height: PropTypes.number.isRequired,
+  //   onResizeEnd: PropTypes.func.isRequired,
+  //   className: PropTypes.string
+  // },
 
   getDefaultProps(): {renderer: ReactComponent | (props: {column: {name: string}}) => ReactElement} {
     return {
@@ -90,6 +101,31 @@ const HeaderCell = React.createClass({
     node.style.webkitTransform = `translate3d(${scrollLeft}px, 0px, 0px)`;
     node.style.transform = `translate3d(${scrollLeft}px, 0px, 0px)`;
   },
+  disableDefaultContext() {
+    document.removeEventListener('contextmenu', this.handleMouseDown);
+    document.addEventListener('contextmenu', this.handleMouseDown);
+  },
+
+  handleMouseDown(e) {
+    const body = document.querySelector('body');
+    body.addEventListener('click', bodyClickHandler);
+
+    if(e.target.classList.contains('react-grid-HeaderCell') || e.target.parentElement.classList.contains('react-grid-HeaderCell')){
+      e.preventDefault();
+      e.stopPropagation();
+      if(e.button === 2){
+        let headerCells = document.getElementsByClassName('is-open');
+        for(let i =0;i<headerCells.length;i++){
+          let el = headerCells[i];
+          el.classList.remove('is-open');
+        }
+    
+        let headerCell = e.target.closest('.react-grid-HeaderCell');
+        headerCell.classList.add('is-open');
+      }
+    }
+  },
+
 
   removeScroll() {
     let node = ReactDOM.findDOMNode(this);
@@ -101,6 +137,7 @@ const HeaderCell = React.createClass({
   },
 
   render(): ?ReactElement {
+    this.disableDefaultContext();
     let resizeHandle;
     if (this.props.column.resizable) {
       resizeHandle = (<ResizeHandle
@@ -109,6 +146,15 @@ const HeaderCell = React.createClass({
       onDragEnd={this.onDragEnd}
       />);
     }
+
+    let contextDropDown;
+      contextDropDown = (<ContextDropDown
+      onDrag={this.onDrag}
+      onDragStart={this.onDragStart}
+      onDragEnd={this.onDragEnd}
+      isOpen={'isactive'}
+      />);
+      
     let className = joinClasses({
       'react-grid-HeaderCell': true,
       'react-grid-HeaderCell--resizing': this.state.resizing,
@@ -120,6 +166,7 @@ const HeaderCell = React.createClass({
       <div className={className} style={this.getStyle()}>
         {cell}
         {resizeHandle}
+        {contextDropDown}
       </div>
     );
   }

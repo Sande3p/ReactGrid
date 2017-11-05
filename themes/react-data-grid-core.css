@@ -21,6 +21,7 @@
 
 .react-grid-Canvas {
   background-color: #ffffff;
+  overflow-y: auto !important;
 }
 
 .react-grid-Cell input.editor-main,

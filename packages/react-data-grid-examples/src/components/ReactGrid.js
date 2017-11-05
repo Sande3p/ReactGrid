@@ -2,7 +2,7 @@ import React, { Component, onInit } from 'react'
 import ReactPaginate from 'react-paginate';
 import RowRenderer from './RowRenderer';
 import HeaderRenderer from './HeaderRenderer';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import facker from 'faker';
 const ReactDataGrid = require('react-data-grid');

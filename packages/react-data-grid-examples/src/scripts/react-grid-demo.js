@@ -14,6 +14,7 @@ faker.locale = 'en_US';
 const columns = [];
 
 let gridConfig = require('../assets/gridConfig.json');
+const data = require('../assets/data/dataset.json');
 
 // ReactGridDemo component
 // This component uses the ReactGrid component
@@ -198,12 +199,8 @@ export default class ReactGridDemo extends Component{
 
   getColumns() {
     let clonedColumns = [];
-    this.fetchPromise()
-    .then(data => {
-      clonedColumns = data;
-      gridConfig.columnArray = data.columns;
-      this.setState({"columnsFetched" : true});
-    });
+    gridConfig.columnArray = data.columns;
+    this.setState({"columnsFetched" : true});
   }
 
   fetchPromise() {

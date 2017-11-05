@@ -175,7 +175,7 @@ const Footer = React.createClass({
   setScrollLeft(scrollLeft: number) {
     let node = ReactDOM.findDOMNode(this.row);
     node.scrollLeft = scrollLeft;
-    this.row.setScrollLeft(scrollLeft);
+    // this.row.setScrollLeft(scrollLeft);
     if (this.filterRow) {
       let nodeFilters = ReactDOM.findDOMNode(this.filterRow);
       nodeFilters.scrollLeft = scrollLeft;
